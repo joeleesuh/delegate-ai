@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DelegateAI - Meeting Transcription</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="url"] {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: none;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .transcript-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .analysis-section {
+            margin-top: 2rem;
+        }
+
+        .analysis-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .issue-item {
+            background: #f8fafc;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .issue-item h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .priority-high {
+            border-left-color: #ef4444;
+        }
+
+        .priority-medium {
+            border-left-color: #f59e0b;
+        }
+
+        .priority-low {
+            border-left-color: #10b981;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .badge-high {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .badge-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .badge-low {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .quote {
+            background: rgba(102, 126, 234, 0.05);
+            border-left: 3px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+            font-style: italic;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .example-link {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+
+        .example-link a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .example-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 DelegateAI</h1>
+            <p>Join Zoom meetings, transcribe, and analyze with AI</p>
+        </div>
+
+        <div class="card">
+            <h2>Submit Meeting</h2>
+            <p style="color: #64748b; margin-bottom: 1.5rem;">
+                Paste a Zoom meeting link and DelegateAI will join, record, transcribe, and analyze it for you.
+            </p>
+
+            <form id="meetingForm">
+                <div class="form-group">
+                    <label for="zoomLink">Zoom Meeting Link *</label>
+                    <input
+                        type="url"
+                        id="zoomLink"
+                        name="zoomLink"
+                        placeholder="https://zoom.us/j/123456789?pwd=..."
+                        required
+                    >
+                    <div class="example-link">
+                        Example: https://zoom.us/j/123456789 or https://mit.zoom.us/j/987654321
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="meetingName">Meeting Name (optional)</label>
+                    <input
+                        type="text"
+                        id="meetingName"
+                        name="meetingName"
+                        placeholder="e.g., Graduate Student Council Town Hall"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="repName">Your Name *</label>
+                    <input
+                        type="text"
+                        id="repName"
+                        name="repName"
+                        placeholder="e.g., Joel Suh"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">
+                    🚀 Join Meeting & Transcribe
+                </button>
+            </form>
+
+            <div id="status" class="status"></div>
+        </div>
+
+        <div id="results" class="card results">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 1rem; color: #64748b;">Processing meeting...</p>
+            </div>
+
+            <div id="resultsContent" style="display: none;">
+                <h2>📄 Meeting Transcript</h2>
+                <div id="transcript" class="transcript-box"></div>
+
+                <div class="analysis-section">
+                    <h2>🔍 AI Analysis</h2>
+                    <div id="analysis"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+
+        document.getElementById('meetingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const zoomLink = document.getElementById('zoomLink').value;
+            const meetingName = document.getElementById('meetingName').value || 'Meeting';
+            const repName = document.getElementById('repName').value;
+
+            const submitBtn = document.getElementById('submitBtn');
+            const status = document.getElementById('status');
+            const results = document.getElementById('results');
+            const loading = document.getElementById('loading');
+            const resultsContent = document.getElementById('resultsContent');
+
+            // Disable form
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+
+            try {
+                // Step 1: Submit meeting
+                status.className = 'status info show';
+                status.textContent = '📡 Submitting meeting...';
+
+                const response = await fetch(`${API_URL}/meetings`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ zoom_link: zoomLink, meeting_name: meetingName, rep_name: repName })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to submit meeting');
+                }
+
+                const data = await response.json();
+                const meetingId = data.meeting_id;
+
+                status.textContent = '✅ Meeting submitted! Processing...';
+
+                // Step 2: Show loading
+                results.classList.add('show');
+                loading.style.display = 'block';
+                resultsContent.style.display = 'none';
+
+                // Step 3: Trigger processing
+                const processResponse = await fetch(`${API_URL}/meetings/${meetingId}/process`, {
+                    method: 'POST'
+                });
+
+                if (!processResponse.ok) {
+                    throw new Error('Processing failed');
+                }
+
+                const processData = await processResponse.json();
+
+                // Step 4: Display results
+                loading.style.display = 'none';
+                resultsContent.style.display = 'block';
+
+                document.getElementById('transcript').textContent = processData.transcript;
+
+                // Display analysis
+                const analysis = JSON.parse(processData.analysis);
+                displayAnalysis(analysis);
+
+                status.className = 'status success show';
+                status.textContent = '✅ Complete! See results below.';
+
+            } catch (error) {
+                status.className = 'status error show';
+                status.textContent = `❌ Error: ${error.message}`;
+                results.classList.remove('show');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Join Meeting & Transcribe';
+            }
+        });
+
+        function displayAnalysis(analysis) {
+            const container = document.getElementById('analysis');
+            container.innerHTML = '';
+
+            // Executive Summary
+            const summary = document.createElement('div');
+            summary.innerHTML = `
+                <h3>📋 Executive Summary</h3>
+                <p style="margin-bottom: 2rem; line-height: 1.6;">${analysis.executive_summary}</p>
+            `;
+            container.appendChild(summary);
+
+            // Issues
+            if (analysis.issues_identified && analysis.issues_identified.length > 0) {
+                const issuesSection = document.createElement('div');
+                issuesSection.innerHTML = '<h3>⚠️ Issues Identified</h3>';
+
+                analysis.issues_identified.forEach(issue => {
+                    const issueDiv = document.createElement('div');
+                    issueDiv.className = `issue-item priority-${issue.priority}`;
+                    issueDiv.innerHTML = `
+                        <h4>
+                            <span class="badge badge-${issue.priority}">${issue.priority.toUpperCase()}</span>
+                            ${issue.title}
+                        </h4>
+                        <p>${issue.description}</p>
+                        <small style="color: #64748b;">Category: ${issue.category} | Sentiment: ${issue.sentiment}</small>
+                    `;
+                    issuesSection.appendChild(issueDiv);
+                });
+
+                container.appendChild(issuesSection);
+            }
+
+            // Notable Quotes
+            if (analysis.notable_quotes && analysis.notable_quotes.length > 0) {
+                const quotesSection = document.createElement('div');
+                quotesSection.innerHTML = '<h3 style="margin-top: 2rem;">💬 Notable Quotes</h3>';
+
+                analysis.notable_quotes.forEach(item => {
+                    const quoteDiv = document.createElement('div');
+                    quoteDiv.className = 'quote';
+                    quoteDiv.innerHTML = `
+                        "${item.quote}"
+                        <div style="margin-top: 0.5rem; font-weight: 600; font-style: normal;">— ${item.speaker}</div>
+                        <div style="margin-top: 0.25rem; font-size: 0.875rem; color: #64748b; font-style: normal;">${item.context}</div>
+                    `;
+                    quotesSection.appendChild(quoteDiv);
+                });
+
+                container.appendChild(quotesSection);
+            }
+
+            // Recommendations
+            if (analysis.recommendations && analysis.recommendations.length > 0) {
+                const recsSection = document.createElement('div');
+                recsSection.innerHTML = '<h3 style="margin-top: 2rem;">💡 Recommendations</h3><ul style="margin-left: 1.5rem; line-height: 1.8;">';
+                analysis.recommendations.forEach(rec => {
+                    recsSection.innerHTML += `<li>${rec}</li>`;
+                });
+                recsSection.innerHTML += '</ul>';
+                container.appendChild(recsSection);
+            }
+        }
+    </script>
+</body>
+</html>
