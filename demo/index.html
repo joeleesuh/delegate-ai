@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DelegateAI - Demo Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <h1>🤖 DelegateAI</h1>
+                <p class="subtitle">Your AI Delegate</p>
+            </div>
+
+            <div class="user-info">
+                <div class="avatar">JS</div>
+                <div>
+                    <div class="user-name">Joel Suh</div>
+                    <div class="user-role">MIT GSC At-Large Rep</div>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item active" data-view="dashboard">
+                    <span class="icon">📊</span>
+                    <span>Dashboard</span>
+                </li>
+                <li class="nav-item" data-view="meetings">
+                    <span class="icon">🎥</span>
+                    <span>Meetings</span>
+                    <span class="badge">3 new</span>
+                </li>
+                <li class="nav-item" data-view="feedback">
+                    <span class="icon">💬</span>
+                    <span>Constituent Feedback</span>
+                </li>
+                <li class="nav-item" data-view="insights">
+                    <span class="icon">🔍</span>
+                    <span>Insights</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <h2 class="page-title">Dashboard</h2>
+                    <p class="page-subtitle">Your constituent engagement overview</p>
+                </div>
+                <div class="header-right">
+                    <div class="date">October 27, 2025</div>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view active">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🎥</div>
+                        <div class="stat-content">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Meetings Attended</div>
+                            <div class="stat-change positive">+3 this week</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <div class="stat-value">847</div>
+                            <div class="stat-label">Constituents Engaged</div>
+                            <div class="stat-change positive">+124 this month</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <div class="stat-value">43</div>
+                            <div class="stat-label">Issues Identified</div>
+                            <div class="stat-change">8 high priority</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-content">
+                            <div class="stat-value">18.5h</div>
+                            <div class="stat-label">Time Saved</div>
+                            <div class="stat-change positive">This month</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Issues -->
+                <div class="section">
+                    <h3 class="section-title">🔥 Trending Issues</h3>
+                    <div class="issues-list">
+                        <div class="issue-item priority-high">
+                            <div class="issue-header">
+                                <span class="issue-priority">High Priority</span>
+                                <span class="issue-mentions">Mentioned 8 times</span>
+                            </div>
+                            <h4>Graduate Student Mental Health Resources</h4>
+                            <p>Multiple departments reporting insufficient mental health support. Students citing long wait times (3-4 weeks) for counseling appointments and lack of specialized support for PhD candidates.</p>
+                            <div class="issue-sources">
+                                <span class="source-tag">Sloan Town Hall</span>
+                                <span class="source-tag">EECS Dept Meeting</span>
+                                <span class="source-tag">Survey Responses (32)</span>
+                            </div>
+                        </div>
+
+                        <div class="issue-item priority-high">
+                            <div class="issue-header">
+                                <span class="issue-priority">High Priority</span>
+                                <span class="issue-mentions">Mentioned 6 times</span>
+                            </div>
+                            <h4>Housing Affordability & Availability</h4>
+                            <p>Rising costs in Cambridge area making it difficult for grad students. Students requesting university subsidies or additional on-campus housing options.</p>
+                            <div class="issue-sources">
+                                <span class="source-tag">Graduate Student Meeting</span>
+                                <span class="source-tag">Survey Responses (18)</span>
+                            </div>
+                        </div>
+
+                        <div class="issue-item priority-medium">
+                            <div class="issue-header">
+                                <span class="issue-priority">Medium Priority</span>
+                                <span class="issue-mentions">Mentioned 4 times</span>
+                            </div>
+                            <h4>Research Funding Transparency</h4>
+                            <p>PhD students want clearer communication about funding sources, duration, and application processes for grants and fellowships.</p>
+                            <div class="issue-sources">
+                                <span class="source-tag">Engineering Council</span>
+                                <span class="source-tag">Science Dept Forum</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="section">
+                    <h3 class="section-title">📅 Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">🎥</div>
+                            <div class="activity-content">
+                                <div class="activity-title">MIT Sloan MBA Town Hall</div>
+                                <div class="activity-meta">Today at 2:00 PM • 45 attendees • 78 min</div>
+                                <div class="activity-summary">Discussed career services, networking events, and mental health resources. 3 action items identified.</div>
+                            </div>
+                            <button class="btn-view">View Summary</button>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon">💬</div>
+                            <div class="activity-content">
+                                <div class="activity-title">New Survey Responses</div>
+                                <div class="activity-meta">Today at 11:30 AM • 23 responses</div>
+                                <div class="activity-summary">Weekly check-in survey received responses from Engineering and Science students. Key themes: housing, funding.</div>
+                            </div>
+                            <button class="btn-view">View Responses</button>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon">🎥</div>
+                            <div class="activity-content">
+                                <div class="activity-title">EECS Department Meeting</div>
+                                <div class="activity-meta">Yesterday at 4:00 PM • 62 attendees • 52 min</div>
+                                <div class="activity-summary">Faculty discussed course load concerns and research funding. Students voiced need for better mental health support.</div>
+                            </div>
+                            <button class="btn-view">View Summary</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meetings View -->
+            <div id="meetings-view" class="view">
+                <div class="view-header">
+                    <h3>Meeting Summaries</h3>
+                    <p>Your AI delegate has attended these meetings on your behalf</p>
+                </div>
+
+                <div class="meetings-grid">
+                    <div class="meeting-card" data-meeting="1">
+                        <div class="meeting-header">
+                            <div>
+                                <h4>MIT Sloan MBA Town Hall</h4>
+                                <div class="meeting-meta">
+                                    <span>📅 Today, 2:00 PM</span>
+                                    <span>👥 45 attendees</span>
+                                    <span>⏱️ 78 minutes</span>
+                                </div>
+                            </div>
+                            <span class="status-badge new">New</span>
+                        </div>
+
+                        <div class="meeting-summary">
+                            <p><strong>Key Topics:</strong> Career services, networking events, mental health resources</p>
+                            <p><strong>Sentiment:</strong> <span class="sentiment positive">Mostly Positive</span></p>
+                            <p><strong>Action Items:</strong> 3 identified</p>
+                        </div>
+
+                        <div class="meeting-highlights">
+                            <div class="highlight">
+                                <strong>💡 Key Quote:</strong>
+                                <em>"We need more mental health resources specifically for MBA students dealing with recruiting stress."</em>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary" onclick="showMeetingDetail(1)">View Full Summary</button>
+                    </div>
+
+                    <div class="meeting-card" data-meeting="2">
+                        <div class="meeting-header">
+                            <div>
+                                <h4>EECS Department Meeting</h4>
+                                <div class="meeting-meta">
+                                    <span>📅 Yesterday, 4:00 PM</span>
+                                    <span>👥 62 attendees</span>
+                                    <span>⏱️ 52 minutes</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-summary">
+                            <p><strong>Key Topics:</strong> Course load, research funding, TA support</p>
+                            <p><strong>Sentiment:</strong> <span class="sentiment mixed">Mixed</span></p>
+                            <p><strong>Action Items:</strong> 5 identified</p>
+                        </div>
+
+                        <div class="meeting-highlights">
+                            <div class="highlight">
+                                <strong>⚠️ Concern:</strong>
+                                <em>"PhD students struggling with 3+ week wait times for mental health appointments."</em>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary" onclick="showMeetingDetail(2)">View Full Summary</button>
+                    </div>
+
+                    <div class="meeting-card">
+                        <div class="meeting-header">
+                            <div>
+                                <h4>Graduate Student Housing Forum</h4>
+                                <div class="meeting-meta">
+                                    <span>📅 Oct 24, 6:00 PM</span>
+                                    <span>👥 38 attendees</span>
+                                    <span>⏱️ 65 minutes</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="meeting-summary">
+                            <p><strong>Key Topics:</strong> Housing costs, on-campus availability, off-campus options</p>
+                            <p><strong>Sentiment:</strong> <span class="sentiment negative">Concerned</span></p>
+                            <p><strong>Action Items:</strong> 4 identified</p>
+                        </div>
+
+                        <button class="btn-primary" onclick="showMeetingDetail(3)">View Full Summary</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback View -->
+            <div id="feedback-view" class="view">
+                <div class="view-header">
+                    <h3>Constituent Feedback</h3>
+                    <p>Surveys and direct responses from your constituents</p>
+                </div>
+
+                <div class="feedback-stats">
+                    <div class="feedback-stat">
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">Total Responses</div>
+                    </div>
+                    <div class="feedback-stat">
+                        <div class="stat-number">82%</div>
+                        <div class="stat-label">Response Rate</div>
+                    </div>
+                    <div class="feedback-stat">
+                        <div class="stat-number">4.2</div>
+                        <div class="stat-label">Avg Satisfaction</div>
+                    </div>
+                </div>
+
+                <div class="feedback-categories">
+                    <h4>Top Categories</h4>
+                    <div class="category-bars">
+                        <div class="category-bar">
+                            <div class="category-label">Mental Health (32%)</div>
+                            <div class="bar">
+                                <div class="bar-fill" style="width: 32%"></div>
+                            </div>
+                        </div>
+                        <div class="category-bar">
+                            <div class="category-label">Housing (23%)</div>
+                            <div class="bar">
+                                <div class="bar-fill" style="width: 23%"></div>
+                            </div>
+                        </div>
+                        <div class="category-bar">
+                            <div class="category-label">Funding/Financial (18%)</div>
+                            <div class="bar">
+                                <div class="bar-fill" style="width: 18%"></div>
+                            </div>
+                        </div>
+                        <div class="category-bar">
+                            <div class="category-label">Academic Support (15%)</div>
+                            <div class="bar">
+                                <div class="bar-fill" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        <div class="category-bar">
+                            <div class="category-label">Career Services (12%)</div>
+                            <div class="bar">
+                                <div class="bar-fill" style="width: 12%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-list">
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <span class="feedback-tag tag-mental-health">Mental Health</span>
+                            <span class="feedback-date">Today at 3:42 PM</span>
+                        </div>
+                        <p class="feedback-text">"As a PhD student in my 4th year, the mental health resources are severely lacking. I've been waiting 3 weeks for an appointment and there's no specialized support for doctoral students dealing with research stress and advisor relationships."</p>
+                        <div class="feedback-meta">
+                            <span>PhD Student, Biology</span>
+                            <span class="sentiment-indicator negative">Urgent</span>
+                        </div>
+                    </div>
+
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <span class="feedback-tag tag-housing">Housing</span>
+                            <span class="feedback-date">Today at 11:20 AM</span>
+                        </div>
+                        <p class="feedback-text">"Cambridge rent is eating up 60% of my stipend. Can the university provide housing subsidies or build more graduate student housing? It's becoming financially unsustainable."</p>
+                        <div class="feedback-meta">
+                            <span>Master's Student, Sloan</span>
+                            <span class="sentiment-indicator negative">High Priority</span>
+                        </div>
+                    </div>
+
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <span class="feedback-tag tag-academic">Academic Support</span>
+                            <span class="feedback-date">Yesterday at 5:15 PM</span>
+                        </div>
+                        <p class="feedback-text">"The new TA training program has been really helpful! Would love to see more resources like this for teaching and communication skills."</p>
+                        <div class="feedback-meta">
+                            <span>PhD Student, EECS</span>
+                            <span class="sentiment-indicator positive">Positive</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights View -->
+            <div id="insights-view" class="view">
+                <div class="view-header">
+                    <h3>AI-Powered Insights</h3>
+                    <p>Patterns and trends across all constituent interactions</p>
+                </div>
+
+                <div class="insights-grid">
+                    <div class="insight-card priority-high">
+                        <div class="insight-icon">🚨</div>
+                        <h4>Urgent Action Required</h4>
+                        <p><strong>Mental Health Crisis</strong></p>
+                        <p>8 separate mentions in past week across multiple departments. Wait times reported as 3-4 weeks. PhD students especially affected. Sentiment analysis shows high urgency and frustration.</p>
+                        <div class="insight-recommendation">
+                            <strong>💡 Recommended Actions:</strong>
+                            <ul>
+                                <li>Bring this to next GSC meeting as priority item</li>
+                                <li>Request meeting with MIT Mental Health Services director</li>
+                                <li>Survey graduate students about specific needs</li>
+                                <li>Explore peer support program options</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="insight-card priority-high">
+                        <div class="insight-icon">📊</div>
+                        <h4>Trending Upward</h4>
+                        <p><strong>Housing Concerns</strong></p>
+                        <p>6 mentions this week (up from 2 last week). Primarily from international students and those without family nearby. Average rent taking 50-60% of stipend.</p>
+                        <div class="insight-recommendation">
+                            <strong>💡 Recommended Actions:</strong>
+                            <ul>
+                                <li>Compile housing cost data from constituents</li>
+                                <li>Research peer institution housing support models</li>
+                                <li>Propose housing subsidy pilot program</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="insight-card priority-medium">
+                        <div class="insight-icon">✅</div>
+                        <h4>Positive Momentum</h4>
+                        <p><strong>Career Services Improvements</strong></p>
+                        <p>Recent enhancements to career services receiving positive feedback. Students appreciate new industry panels and networking events.</p>
+                        <div class="insight-recommendation">
+                            <strong>💡 Recommended Actions:</strong>
+                            <ul>
+                                <li>Share positive feedback with career services team</li>
+                                <li>Request expansion to more departments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="patterns-section">
+                    <h4>🔍 Pattern Analysis</h4>
+                    <div class="pattern-item">
+                        <strong>Cross-Department Trend:</strong> Mental health concerns mentioned consistently across Sloan, EECS, Biology, and Physics departments, suggesting university-wide systemic issue rather than department-specific.
+                    </div>
+                    <div class="pattern-item">
+                        <strong>Timing Pattern:</strong> Housing concerns spike at beginning of each semester, suggesting need for proactive communication about resources.
+                    </div>
+                    <div class="pattern-item">
+                        <strong>Demographic Insight:</strong> International students more likely to raise housing and community concerns, suggesting targeted outreach opportunity.
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Meeting Detail Modal -->
+    <div id="meeting-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Meeting Summary</h3>
+                <button class="modal-close" onclick="closeMeetingDetail()">&times;</button>
+            </div>
+            <div id="modal-body" class="modal-body">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
