@@ -20,7 +20,7 @@ This problem exists everywhere representation happens:
 
 ## Market Opportunity
 
-### Total Addressable Market (TAM)
+### Total Addressable Market (TAM) 
 **Conservative estimate for student government alone:**
 - 5,000 universities worldwide
 - Average 20 student government positions per university
