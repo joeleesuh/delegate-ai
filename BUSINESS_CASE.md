@@ -249,5 +249,3 @@ We're the only solution that actually "represents" you at events you can't atten
 
 **Bottom Line:**
 This solves a real problem you experience daily, has a large addressable market, and leverages emerging AI capabilities perfectly. Start by solving it for yourself, then expand to every representative who needs to engage constituents at scale.
-
-**Next Step:** Build the MVP and prove it works for you this semester.
